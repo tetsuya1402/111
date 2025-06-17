@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Товар</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body>
+    <a href="./index.html" class="back-link">← Назад до каталогу</a>
+    <div class="product-container">
+        <div class="product-image">
+            <img id="product-image" src="" alt="Фото товару" />
+        </div>
+        <div class="product-info">
+            <h2 id="product-name">Завантаження...</h2>
+            <p><strong>Ціна:</strong> <span id="product-price"></span> грн</p>
+            <p id="product-description"></p>
+
+            <div class="sizes">
+                <strong>Розмір:</strong><br />
+                <label><input type="radio" name="size" value="S"> S</label>
+                <label><input type="radio" name="size" value="M" checked> M</label>
+                <label><input type="radio" name="size" value="L"> L</label>
+                <label><input type="radio" name="size" value="XL"> XL</label>
+            </div>
+
+            <button id="add-to-cart-btn" style="margin-top: 20px;">До кошика</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+        const defaultProducts = [
+            { id: 1, name: "Футболка біла", price: 500, category: "Футболки", image: "images/product1.jpg", description: "Легка футболка" },
+            { id: 2, name: "Костюм", price: 700, category: "Костюми", image: "images/product2.jpg", description: "Елегантний костюм" },
+            { id: 3, name: "Куртка", price: 5100, category: "Куртки", image: "images/product3.jpg", description: "Тепла куртка" },
+            { id: 4, name: "Кроссовки", price: 4100, category: "Кроссовки", image: "images/product4.jpg", description: "Спортивне взуття" },
+            { id: 5, name: "Футболка сіра", price: 500, category: "Футболки", image: "images/product5.jpg", description: "Легка футболка" },
+            { id: 6, name: "Футболка стрейчова сіра", price: 500, category: "Футболки", image: "images/product6.jpg", description: "Легка футболка" },
+            { id: 7, name: "Крутий комплект/Костюм", price: 1900, category: "Костюми", image: "images/product7.jpg", description: "Елегантний костюм" },
+            { id: 8, name: "Куртка", price: 4000, category: "Куртки", image: "images/product8.jpg", description: "Тепла куртка" },
+        ];
+        const adminProducts = JSON.parse(localStorage.getItem("adminProducts")) || [];
+        const products = [...defaultProducts, ...adminProducts];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        const product = products.find(p => p.id === productId);
+
+        if (!product) {
+            document.body.innerHTML = '<p>Товар не знайдено. <a href="./index.html">Повернутись назад</a></p>';
+        } else {
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-price').textContent = product.price;
+            document.getElementById('product-image').src = product.image;
+            document.getElementById('product-description').textContent = product.description || 'Опис відсутній.';
+            document.getElementById('add-to-cart-btn').onclick = () => {
+                const size = document.querySelector('input[name="size"]:checked').value;
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({ id: product.id, size });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert(`Товар "${product.name}" (розмір ${size}) додано до кошика!`);
+            };
+        }
+
+        function togglePanel() {
+            document.getElementById("controlPanel").classList.toggle("closed");
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function applyFloatingFilter() {
+            alert("Фільтрація недоступна на цій сторінці.");
+        }
+
+        function handleLoginLogout() {
+            if (localStorage.getItem('user')) {
+                localStorage.removeItem('user');
+                alert('Ви вийшли з акаунту');
+                window.location.href = "./index.html";
+            } else {
+                window.location.href = "./login.html";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const authLabel = document.getElementById('floating-auth-label');
+            if (authLabel && localStorage.getItem('user')) {
+                authLabel.textContent = 'Вийти';
+            }
+        });
+    </script>
+</body>
+
+</html>
