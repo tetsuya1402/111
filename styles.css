@@ -1,0 +1,257 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f5f5f5;
+  --accent-color: #007bff;
+}
+
+body.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #f0f0f0;
+  --card-bg: #2a2a2a;
+  --accent-color: #4dabf7;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+header.main-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--card-bg);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actions input,
+.actions select {
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+}
+
+.container {
+  padding: 1rem 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card h3 {
+  margin: 0.5rem 0;
+}
+
+.card button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.card button:hover {
+  opacity: 0.9;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.login-container,
+form#add-product-form,
+form#checkout-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  width: 100%;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  opacity: 0.9;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.product-image {
+  flex: 1 1 300px;
+}
+
+.product-image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-info {
+  flex: 1 1 300px;
+}
+
+.sizes label {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* 🔘 Плавающая панель */
+.floating-panel {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+}
+
+.panel {
+  background: #3c3f58;
+  padding: 10px;
+  border-radius: 10px;
+  transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+  overflow: hidden;
+  max-height: 500px;
+  opacity: 1;
+  transform: scale(1);
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.panel.closed {
+  max-height: 0;
+  opacity: 0;
+  transform: scale(0.8);
+  padding: 0;
+  pointer-events: none;
+}
+
+.panel select,
+.panel button {
+  display: block;
+  margin: 6px 0;
+  width: 150px;
+  padding: 8px;
+  background-color: #5c5f88;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+}
+
+#toggleBtn {
+  width: 40px;
+  height: 40px;
+  background-color: #5c5f88;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.back-link {
+  display: inline-block;
+  margin: 1rem;
+  font-size: 1rem;
+}
+
+/* 📱 Адаптивность */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+  .product-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
